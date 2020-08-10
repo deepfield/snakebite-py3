@@ -1551,6 +1551,9 @@ class HAClient(Client):
                     self.__handle_request_error(e)
                 except socket.error as e:
                     self.__handle_socket_error(e)
+                # https://github.com/internetarchive/snakebite-py3/pull/7
+                except StopIteration as e:
+                    return e.value
         return wrapped
 
 HAClient._wrap_methods()
